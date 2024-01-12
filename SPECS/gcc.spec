@@ -138,7 +138,7 @@
 Summary: GCC version 11
 Name: %{?scl_prefix}gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.1%{?dist}
+Release: %{gcc_release}.2%{?dist}
 # libgcc, libgfortran, libgomp, libstdc++ and crtstuff have
 # GCC Runtime Exception.
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
@@ -344,6 +344,8 @@ Patch16: gcc11-stringify-__VA_OPT__.patch
 Patch17: gcc11-stringify-__VA_OPT__-2.patch
 Patch18: gcc11-Wbidi-chars.patch
 Patch19: gcc11-dejagnu-multiline.patch
+Patch20: gcc11-pr105671.patch
+Patch21: gcc11-pr95048.patch
 
 Patch100: gcc11-fortran-fdec-duplicates.patch
 Patch101: gcc11-fortran-flogical-as-integer.patch
@@ -719,6 +721,8 @@ to NVidia PTX capable devices if available.
 %patch17 -p0 -b .stringify-__VA_OPT__-2~
 %patch18 -p1 -b .bidi~
 %patch19 -p1 -b .dejagnu-multiline~
+%patch20 -p1 -b .pr105671~
+%patch21 -p1 -b .pr95048~
 
 %patch100 -p1 -b .fortran-fdec-duplicates~
 %patch101 -p1 -b .fortran-flogical-as-integer~
@@ -2892,6 +2896,10 @@ fi
  %endif
 
 %changelog
+* Tue Jul 11 2023 Marek Polacek <polacek@redhat.com> 11.2.1-9.2
+- fix wstring conversions in filesystem::path (PR libstdc++/95048, #2220896)
+- mark non-exported function always_inline (PR libstdc++/105671, #2221740)
+
 * Wed Feb  2 2022 Marek Polacek <polacek@redhat.com> 11.2.1-9.1
 - avoid overly-greedy match in dejagnu regexp (#2049712)
 
